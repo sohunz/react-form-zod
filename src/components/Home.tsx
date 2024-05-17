@@ -1,10 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import z from "zod";
+import Loading from "./Loading";
 
 const schema = z.object({
-    email: z.string().email().email().toLowerCase(),
-    password: z.string().min(8),
+    email: z.string().email().toLowerCase().trim(),
+    password: z.string().min(8).trim(),
+    fistName: z.string().min(1),
+    lastName: z.string().min(1),
 });
 
 type InputFields = z.infer<typeof schema>;
@@ -29,6 +32,36 @@ const Home = () => {
             className="bg-gray-900 p-10 rounded-2xl"
         >
             <div className="mb-5 w-[500px]">
+                <div className="w-full flex flex-row justify-between gap-4">
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="First Name"
+                            {...register("fistName")}
+                            className="w-full border border-gray-600 py-3  px-4 outline-none rounded-md bg-gray-900"
+                        />
+                        {errors.fistName && (
+                            <div className="text-red-600 text-[14px] mt-2">
+                                {errors.fistName.message}
+                            </div>
+                        )}
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Last Name"
+                            {...register("lastName")}
+                            className="w-full border border-gray-600 py-3  px-4 outline-none rounded-md bg-gray-900"
+                        />
+                        {errors.lastName && (
+                            <div className="text-red-600 text-[14px] mt-2">
+                                {errors.lastName.message}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+            <div className="mb-5 w-[500px]">
                 <input
                     type="email"
                     placeholder="Email"
@@ -36,7 +69,9 @@ const Home = () => {
                     className="w-full border border-gray-600 py-3  px-4 outline-none rounded-md bg-gray-900"
                 />
                 {errors.email && (
-                    <div className="text-red-600">{errors.email.message}</div>
+                    <div className="text-red-600 text-[14px] mt-2">
+                        {errors.email.message}
+                    </div>
                 )}
             </div>
             <div className="mb-5">
@@ -47,7 +82,7 @@ const Home = () => {
                     className="w-full border border-gray-600 py-3  px-4 outline-none rounded-md bg-gray-900"
                 />
                 {errors.password && (
-                    <div className="text-red-600">
+                    <div className="text-red-600 text-[14px] mt-2">
                         {errors.password.message}
                     </div>
                 )}
@@ -56,9 +91,9 @@ const Home = () => {
             <button
                 disabled={isSubmitting}
                 type="submit"
-                className="py-2 px-4 bg-violet-700 text-white rounded-md"
+                className="py-2 px-4 bg-violet-700 text-blue rounded-md"
             >
-                {isSubmitting ? "Loading..." : "Submit"}
+                {isSubmitting ? <Loading /> : "Submit"}
             </button>
         </form>
     );
