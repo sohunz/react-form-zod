@@ -29,11 +29,12 @@ const Home = () => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="bg-gray-900 p-10 rounded-2xl"
+            className="bg-gray-900 p-10 rounded-2xl shadow-lg"
         >
-            <div className="mb-5 w-[500px]">
+            <p className="text-center font-semibold text-xl mb-10">Sign Up</p>
+            <div className="mb-5 w-[550px]">
                 <div className="w-full flex flex-row justify-between gap-4">
-                    <div>
+                    <div className="w-full">
                         <input
                             type="text"
                             placeholder="First Name"
@@ -46,7 +47,7 @@ const Home = () => {
                             </div>
                         )}
                     </div>
-                    <div>
+                    <div className="w-full">
                         <input
                             type="text"
                             placeholder="Last Name"
@@ -61,7 +62,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className="mb-5 w-[500px]">
+            <div className="mb-5 w-[550px]">
                 <input
                     type="email"
                     placeholder="Email"
